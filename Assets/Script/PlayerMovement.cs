@@ -42,7 +42,47 @@ public class PlayerMovement : MonoBehaviour
 
         UpdateAnmationState();
 
-     
+    }
+
+    private void UpdateAnmationState()
+    {
+
+        MovementState state;
+
+        if (directionX > 0f)
+        {
+            //anim.SetBool("running", true);
+            state = MovementState.running;
+            sprite.flipX = false;
+
+        }
+        else if (directionX < 0f)
+        {
+            //anim.SetBool("running", true);
+            state = MovementState.running;
+            sprite.flipX = true;
+        }
+        else
+        {
+            //anim.SetBool("running", false);
+            state = MovementState.idle;
+        }
+
+        if (rb.velocity.y > .1f)
+        {
+            state = MovementState.jumping;
+        }
+        else if (rb.velocity.y < -.1f)
+        {
+            state = MovementState.falling;
+        }
+
+        anim.SetInteger("state", (int)state);
+    }
+
+    private bool hitedGround()
+    {
+        return Physics2D.BoxCast(coll.bounds.center, coll.bounds.size, 0f, Vector2.down, .1f, jumpableGound);
     }
 
 }
