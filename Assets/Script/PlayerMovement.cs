@@ -13,7 +13,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float movingSpeed = 7f;
     [SerializeField] private float jumpForce = 14f;
 
-    // hitedGound
+    // hitedGround
     [SerializeField] private LayerMask jumpableGround;
 
     private enum MovementState { idle, running, jumping, falling };
@@ -44,18 +44,23 @@ public class PlayerMovement : MonoBehaviour
 
     }
 
+    // update the anmation state
     private void UpdateAnmationState()
     {
 
         MovementState state;
 
+        // check moving to the right
         if (directionX > 0f)
         {
             //anim.SetBool("running", true);
             state = MovementState.running;
+
+            // ensure the sprite is facing right
             sprite.flipX = false;
 
         }
+        // check moving to the left
         else if (directionX < 0f)
         {
             //anim.SetBool("running", true);
@@ -68,15 +73,18 @@ public class PlayerMovement : MonoBehaviour
             state = MovementState.idle;
         }
 
+        // check player is moving jumping
         if (rb.velocity.y > .1f)
         {
             state = MovementState.jumping;
         }
+        // check player is falling
         else if (rb.velocity.y < -.1f)
         {
             state = MovementState.falling;
         }
 
+        // set the animation param 'state' to the integer representation
         anim.SetInteger("state", (int)state);
     }
 
