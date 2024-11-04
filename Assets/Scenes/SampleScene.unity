@@ -467,7 +467,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9de190fd1ab412c4eb54143621db3b2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cherriesText: {fileID: 0}
+  cherriesText: {fileID: 704588730}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -18944,7 +18944,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 4f593d24d5ffae244b773cdaf34d5bb7, type: 3}
-    m_FontSize: 16
+    m_FontSize: 14
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 1
