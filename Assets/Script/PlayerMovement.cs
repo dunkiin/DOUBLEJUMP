@@ -82,6 +82,7 @@ public class PlayerMovement : MonoBehaviour
 
     private bool hitedGround()
     {
+        // casted downwards by a small distance (0.1f), to detect if it hits a layer defined as 'jumpableGround
         return Physics2D.BoxCast(coll.bounds.center, coll.bounds.size, 0f, Vector2.down, .1f, jumpableGround);
     }
 
