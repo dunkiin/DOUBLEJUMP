@@ -14,7 +14,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float jumpForce = 14f;
 
     // hitedGound
-    [SerializeField] private LayerMask jumpableGound;
+    [SerializeField] private LayerMask jumpableGround;
 
     private enum MovementState { idle, running, jumping, falling };
     
@@ -35,7 +35,7 @@ public class PlayerMovement : MonoBehaviour
         rb.velocity = new Vector2(directionX * movingSpeed, rb.velocity.y);
 
         // user jump
-        if (Input.GetButtonDown("Jump"))
+        if (Input.GetButtonDown("Jump") && hitedGround())
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpForce); // Vector3 is more for 3D, the 3 meaning is X,Y,Z
         }
@@ -82,7 +82,7 @@ public class PlayerMovement : MonoBehaviour
 
     private bool hitedGround()
     {
-        return Physics2D.BoxCast(coll.bounds.center, coll.bounds.size, 0f, Vector2.down, .1f, jumpableGound);
+        return Physics2D.BoxCast(coll.bounds.center, coll.bounds.size, 0f, Vector2.down, .1f, jumpableGround);
     }
 
 }
