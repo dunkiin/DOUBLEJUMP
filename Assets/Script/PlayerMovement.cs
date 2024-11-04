@@ -30,11 +30,11 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        // user left or right
+        // Get horizontal input (left or right) and update
         directionX = Input.GetAxisRaw("Horizontal");
         rb.velocity = new Vector2(directionX * movingSpeed, rb.velocity.y);
 
-        // user jump
+        // Check if the Jump button is pressed and the player is on the ground
         if (Input.GetButtonDown("Jump") && hitedGround())
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpForce); // Vector3 is more for 3D, the 3 meaning is X,Y,Z
