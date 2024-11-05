@@ -9,8 +9,12 @@ public class PlayerMovement : MonoBehaviour
     private Animator anim;
     private SpriteRenderer sprite;
 
+    // Stores the horizontal movement direction, with 0f as the initial value (stationary)
     private float directionX = 0f;
+
     [SerializeField] private float movingSpeed = 7f;
+
+    // // Upward force applied when the player jumps
     [SerializeField] private float jumpForce = 14f;
 
     // hitedGround
