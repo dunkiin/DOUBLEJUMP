@@ -14,7 +14,7 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] private float movingSpeed = 7f;
 
-    // // Upward force applied when the player jumps
+    // Upward force applied when the player jumps
     [SerializeField] private float jumpForce = 14f;
 
     // hitedGround
