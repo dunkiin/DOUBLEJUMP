@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class PlayerLife : MonoBehaviour
 {
+
+    
+
+
     private void Start()
     {
         
@@ -11,6 +15,16 @@ public class PlayerLife : MonoBehaviour
 
     private void OnCollisionEneter2D(Collision2D collision)
     {
+        if (collision.gameObject.CompateTag("Trap"))
+        {
+            Die();
+        }
+    }
+
+
+    private void Die()
+    {
 
     }
+
 }
