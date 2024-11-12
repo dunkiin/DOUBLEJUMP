@@ -9,12 +9,12 @@ public class PlayerLife : MonoBehaviour
 
     private void Start()
     {
-        anim = GetComponect<Animator>();
+        anim = GetComponent<Animator>();
     }
 
     private void OnCollisionEneter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompateTag("Trap"))
+        if (collision.gameObject.CompareTag("Trap"))
         {
             Die();
         }
