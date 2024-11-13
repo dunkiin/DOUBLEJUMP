@@ -5,10 +5,13 @@ using UnityEngine;
 public class PlayerLife : MonoBehaviour
 {
 
+    // reference
+    private Rigidbody2D rb;
     private Animator anim;
 
     private void Start()
     {
+        rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
     }
 
@@ -23,6 +26,8 @@ public class PlayerLife : MonoBehaviour
 
     private void Die()
     {
+        // After death, body type will change to static body
+        rb.bodyType = RigidbodyType2D.Static;
         anim.SetTrigger("death");
     }
 
