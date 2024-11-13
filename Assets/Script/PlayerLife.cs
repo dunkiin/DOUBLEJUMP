@@ -12,7 +12,7 @@ public class PlayerLife : MonoBehaviour
         anim = GetComponent<Animator>();
     }
 
-    private void OnCollisionEneter2D(Collision2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Trap"))
         {
