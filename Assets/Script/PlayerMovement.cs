@@ -21,6 +21,10 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private LayerMask jumpableGround;
 
     private enum MovementState { idle, running, jumping, falling };
+
+
+    [SerializeField] private AudioSource jumpSoundEffect;
+
     
     // Start is called before the first frame update
     private void Start()
@@ -41,6 +45,7 @@ public class PlayerMovement : MonoBehaviour
         // Check if the Jump button is pressed and the player is on the ground
         if (Input.GetButtonDown("Jump") && hitedGround())
         {
+            jumpSoundEffect.Play();
             rb.velocity = new Vector2(rb.velocity.x, jumpForce); // Vector3 is more for 3D, the 3 meaning is X,Y,Z
         }
 
