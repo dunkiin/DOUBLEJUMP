@@ -10,6 +10,7 @@ public class PlayerLife : MonoBehaviour
     private Rigidbody2D rb;
     private Animator anim;
 
+
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
