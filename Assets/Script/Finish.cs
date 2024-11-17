@@ -8,6 +8,8 @@ public class Finish : MonoBehaviour
 
     private AudioSource finishSound;
 
+    private bool levelCompleted = false;
+
     private void Start()
     {
         finishSound = GetComponent<AudioSource>();
@@ -18,7 +20,11 @@ public class Finish : MonoBehaviour
         if (collision.gameObject.name == "Player")
         {
             finishSound.Play();
-            CompleteLevel();
+
+            // after 2 second delay
+            Invoke("CompleteLevel", 2f);
+
+            //CompleteLevel();
         }
     }
 
