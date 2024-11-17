@@ -61508,6 +61508,10 @@ PrefabInstance:
       value: Moving Platforms
       objectReference: {fileID: 0}
     - target: {fileID: 771156958108993715, guid: 5ad7d8350221283479f214b90f64f51e, type: 3}
+      propertyPath: speed
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 771156958108993715, guid: 5ad7d8350221283479f214b90f64f51e, type: 3}
       propertyPath: waypoints.Array.data[0]
       value: 
       objectReference: {fileID: 373879574}
