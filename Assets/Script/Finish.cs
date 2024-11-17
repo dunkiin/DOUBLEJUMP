@@ -17,9 +17,10 @@ public class Finish : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.name == "Player")
+        if (collision.gameObject.name == "Player" && !levelCompleted)
         {
             finishSound.Play();
+            levelCompleted = true;
 
             // after 2 second delay
             Invoke("CompleteLevel", 2f);
