@@ -70523,7 +70523,7 @@ GameObject:
   - component: {fileID: 1960929987}
   - component: {fileID: 1960929986}
   m_Layer: 0
-  m_Name: BackGround Music
+  m_Name: Background Music
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
