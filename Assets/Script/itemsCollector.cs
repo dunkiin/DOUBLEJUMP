@@ -23,7 +23,7 @@ public class itemsCollector : MonoBehaviour
             // player touch it, items disappear
             Destroy(collision.gameObject);
             cherries++;
-            cherriesText.text = "$ $ $ $: " + cherries;
+            cherriesText.text = "Fruits: " + cherries;
         }
     }
 }
