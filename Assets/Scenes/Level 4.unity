@@ -189,7 +189,7 @@ Transform:
   m_GameObject: {fileID: 7764653}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.7302425, y: -1.700004, z: -10}
+  m_LocalPosition: {x: 62.490242, y: -0.710004, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1071,8 +1071,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 906299290}
   - {fileID: 1505791284}
+  - {fileID: 906299290}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &519420028
@@ -1162,7 +1162,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.7302425, y: -1.700004, z: -10}
+  m_LocalPosition: {x: 62.490242, y: -0.710004, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -48186,6 +48186,8 @@ GameObject:
   - component: {fileID: 906299292}
   - component: {fileID: 906299291}
   - component: {fileID: 906299293}
+  - component: {fileID: 906299294}
+  - component: {fileID: 906299295}
   m_Layer: 0
   m_Name: Mushroom
   m_TagString: Enemy
@@ -48202,7 +48204,7 @@ Transform:
   m_GameObject: {fileID: 906299289}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 16.38, y: -5.17, z: 0}
+  m_LocalPosition: {x: 16.5, y: -5.09, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -48315,7 +48317,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -48331,6 +48333,49 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1.7056122, y: 1.3271042}
   m_EdgeRadius: 0
+--- !u!114 &906299294
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 906299289}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbda182fc434d7946a2fc65305ee54ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sprite: {fileID: 906299291}
+  chaseSpeed: 3
+  detectionRange: 10
+  returnSpeed: 2
+--- !u!50 &906299295
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 906299289}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1001 &922419814
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -49106,6 +49151,8 @@ GameObject:
   - component: {fileID: 1505791286}
   - component: {fileID: 1505791285}
   - component: {fileID: 1505791287}
+  - component: {fileID: 1505791289}
+  - component: {fileID: 1505791290}
   m_Layer: 0
   m_Name: Bunny
   m_TagString: Enemy
@@ -49122,7 +49169,7 @@ Transform:
   m_GameObject: {fileID: 1505791283}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -13.75, y: 0.11, z: 0.0045318604}
+  m_LocalPosition: {x: -22, y: 0.09, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -49193,7 +49240,7 @@ Animator:
   m_GameObject: {fileID: 1505791283}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 95bedce0467f99442a69e7f174f45309, type: 2}
+  m_Controller: {fileID: 9100000, guid: 0971bf432d4693c43a10a4e20765996b, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -49235,7 +49282,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -49251,6 +49298,49 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1.851635, y: 2.75}
   m_EdgeRadius: 0
+--- !u!50 &1505791289
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1505791283}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!114 &1505791290
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1505791283}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbda182fc434d7946a2fc65305ee54ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sprite: {fileID: 1505791285}
+  chaseSpeed: 3
+  detectionRange: 5
+  returnSpeed: 2
 --- !u!1 &1518024607
 GameObject:
   m_ObjectHideFlags: 0
@@ -50138,11 +50228,11 @@ PrefabInstance:
       objectReference: {fileID: 1841018538}
     - target: {fileID: 4232108062231570955, guid: 9f8b343bb1f9b9d418a9099ce4a308f2, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.42
+      value: 63.18
       objectReference: {fileID: 0}
     - target: {fileID: 4232108062231570955, guid: 9f8b343bb1f9b9d418a9099ce4a308f2, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.01
+      value: -0.02
       objectReference: {fileID: 0}
     - target: {fileID: 4232108062231570955, guid: 9f8b343bb1f9b9d418a9099ce4a308f2, type: 3}
       propertyPath: m_LocalPosition.z
@@ -50182,6 +50272,10 @@ PrefabInstance:
       objectReference: {fileID: -6367560908665664636, guid: cd947491a13509945aa1b644f9db3ef2, type: 3}
     - target: {fileID: 8863410796632443281, guid: 9f8b343bb1f9b9d418a9099ce4a308f2, type: 3}
       propertyPath: m_Name
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 8863410796632443281, guid: 9f8b343bb1f9b9d418a9099ce4a308f2, type: 3}
+      propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
     m_RemovedComponents: []
