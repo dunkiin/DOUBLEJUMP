@@ -4,7 +4,7 @@ public class EnemyMovement : MonoBehaviour
 {
     private Rigidbody2D rb;
     private Animator anim;
-    public SpriteRenderer sprite;
+    private SpriteRenderer sprite;
 
     [SerializeField] private float chaseSpeed = 3f; // Speed when chasing the player
     [SerializeField] private float detectionRange = 5f; // Range within which the enemy can detect the player
@@ -55,7 +55,7 @@ public class EnemyMovement : MonoBehaviour
             }
             else
             {
-                isChasing = false; 
+                isChasing = false;
             }
         }
     }
