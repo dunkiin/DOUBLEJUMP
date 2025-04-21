@@ -1,5 +1,6 @@
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
-
 
 public class EnemyController : MonoBehaviour
 {
@@ -45,27 +46,32 @@ public class EnemyController : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (isDead) return;
-        if (!collision.gameObject.CompareTag("Player")) return;
+        if (!collision.gameObject.CompareTag("Player"))
+            return;
 
-        // Look at the first contact point's normal to see if the player hit us from above
-        ContactPoint2D cp = collision.GetContact(0);
-        if (cp.normal.y > 0.5f)
+        // see if any contact point has a mostly-upward normal
+        bool stomped = false;
+        foreach (var cp in collision.contacts)
         {
-            // Player jumped on us
-            KillChicken();
+            if (cp.normal.y > 0.5f)
+            {
+                stomped = true;
+                break;
+            }
+        }
 
-            // Optional: bounce the player up
-            Rigidbody2D prb = collision.rigidbody;
+        if (stomped)
+        {
+            // kill chicken & bounce player
+            KillChicken();
+            var prb = collision.rigidbody;
             if (prb != null)
-                prb.linearVelocity = new Vector2(prb.linearVelocity.x, 10f);
+                prb.velocity = new Vector2(prb.velocity.x, 10f);
         }
         else
         {
-            // Side collision: hurt the player
-            var life = collision.gameObject.GetComponent<PlayerLife>();
-            if (life != null)
-                life.Die();
+            // side‑hit → kill the player
+            collision.gameObject.GetComponent<PlayerLife>()?.Die();
         }
     }
 
