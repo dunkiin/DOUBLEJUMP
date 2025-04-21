@@ -40,13 +40,13 @@ public class PlayerMovement : MonoBehaviour
     {
         // Get horizontal input (left or right) and update
         directionX = Input.GetAxisRaw("Horizontal");
-        rb.linearVelocity = new Vector2(directionX * movingSpeed, rb.linearVelocity.y);
+        rb.velocity = new Vector2(directionX * movingSpeed, rb.velocity.y);
 
         // Check if the Jump button is pressed and the player is on the ground
         if (Input.GetButtonDown("Jump") && hitedGround())
         {
             jumpSoundEffect.Play();
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce); // Vector3 is more for 3D, the 3 meaning is X,Y,Z
+            rb.velocity = new Vector2(rb.velocity.x, jumpForce);            // Vector3 is more for 3D, the 3 meaning is X,Y,Z
         }
 
         UpdateAnmationState();
@@ -62,31 +62,29 @@ public class PlayerMovement : MonoBehaviour
         // check moving to the right
         if (directionX > 0f)
         {
-            //anim.SetBool("running", true);
             state = MovementState.running;
 
             // ensure the sprite is facing right
             sprite.flipX = false;
 
         }
+
         // check moving to the left
         else if (directionX < 0f)
         {
-            //anim.SetBool("running", true);
             state = MovementState.running;
             sprite.flipX = true;
         }
         else
         {
-            //anim.SetBool("running", false);
             state = MovementState.idle;
         }
 
-        // check player is moving jumping
         if (rb.linearVelocity.y > .1f)
         {
             state = MovementState.jumping;
         }
+
         // check player is falling
         else if (rb.linearVelocity.y < -.1f)
         {
