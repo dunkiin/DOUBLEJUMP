@@ -21,8 +21,22 @@ public class PlayerLife : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Trap") || collision.gameObject.CompareTag("Enemy"))
+        if (collision.gameObject.CompareTag("Trap"))
         {
+            Die();
+            return;
+        }
+
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            // Check all contact normals ¨C if any point upward, it's a stomp, so ignore
+            foreach (var cp in collision.contacts)
+            {
+                if (cp.normal.y > 0.5f)
+                {
+                    return;
+                }
+            }
             Die();
         }
     }

@@ -1,10 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using System.Collections;
 
-public class EnemyController : MonoBehaviour
+public class ChickenController : MonoBehaviour
 {
-    
+    [Header("Settings")]
     public float detectionRange = 5f;
     public float moveSpeed = 3f;
 
@@ -40,37 +39,32 @@ public class EnemyController : MonoBehaviour
         {
             float dir = Mathf.Sign(player.position.x - transform.position.x);
             rb.linearVelocity = new Vector2(dir * moveSpeed, rb.linearVelocity.y);
-            sprite.flipX = dir < 0;
+
+            sprite.flipX = dir > 0;
         }
     }
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (!collision.gameObject.CompareTag("Player"))
-            return;
+        if (isDead) return;
+        if (!collision.gameObject.CompareTag("Player")) return;
 
-        // see if any contact point has a mostly-upward normal
-        bool stomped = false;
-        foreach (var cp in collision.contacts)
-        {
-            if (cp.normal.y > 0.5f)
-            {
-                stomped = true;
-                break;
-            }
-        }
+        // **Check ALL contact normals** to see if any are upward
+        float topY = transform.position.y + boxCol.offset.y + (boxCol.size.y * 0.5f);
 
-        if (stomped)
+        // Compare player's feet position (approx by its pivot) to that top edge:
+        float playerY = collision.transform.position.y;
+
+        if (playerY > topY)
         {
-            // kill chicken & bounce player
             KillChicken();
-            var prb = collision.rigidbody;
-            if (prb != null)
-                prb.velocity = new Vector2(prb.velocity.x, 10f);
+
+            // bounce the player
+            if (collision.rigidbody != null)
+                collision.rigidbody.linearVelocity = new Vector2(collision.rigidbody.linearVelocity.x, 10f);
         }
         else
         {
-            // side‑hit → kill the player
             collision.gameObject.GetComponent<PlayerLife>()?.Die();
         }
     }
@@ -80,15 +74,26 @@ public class EnemyController : MonoBehaviour
         isDead = true;
         chasing = false;
         rb.linearVelocity = Vector2.zero;
-        boxCol.enabled = false;       // disable our BoxCollider2D
+        boxCol.enabled = false;
 
         anim.SetTrigger("hit");
-        Destroy(gameObject, 0.5f);
+        Destroy(gameObject, 1f);
     }
+
 
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, detectionRange);
+
+        if (boxCol != null)
+        {
+            float topY = transform.position.y + boxCol.offset.y + boxCol.size.y * 0.5f;
+            Gizmos.color = Color.cyan;
+            Gizmos.DrawLine(
+                new Vector3(transform.position.x - boxCol.size.x / 2, topY),
+                new Vector3(transform.position.x + boxCol.size.x / 2, topY)
+            );
+        }
     }
 }
