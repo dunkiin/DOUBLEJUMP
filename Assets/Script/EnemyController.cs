@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ChickenController : MonoBehaviour
+public class EnemyController : MonoBehaviour
 {
     [Header("Settings")]
     public float detectionRange = 5f;
@@ -57,7 +57,7 @@ public class ChickenController : MonoBehaviour
 
         if (playerY > topY)
         {
-            KillChicken();
+            Kill();
 
             // bounce the player
             if (collision.rigidbody != null)
@@ -69,7 +69,7 @@ public class ChickenController : MonoBehaviour
         }
     }
 
-    private void KillChicken()
+    private void Kill()
     {
         isDead = true;
         chasing = false;
