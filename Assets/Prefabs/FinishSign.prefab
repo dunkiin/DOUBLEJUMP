@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 544495447712933380}
   - component: {fileID: 3264483847274953243}
   - component: {fileID: 3410814259170191767}
-  - component: {fileID: 8930887672035174879}
+  - component: {fileID: -8267036208957310520}
   m_Layer: 0
-  m_Name: Finish
+  m_Name: FinishSign
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -80,7 +80,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -8187355101989356663, guid: 27a107940057e8743a507269b18a691a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 68f54e5fc0fa326458d3e18bdccce704, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -246,7 +246,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ced3b02b2f795145ab50ddd5a5aa5ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!95 &8930887672035174879
+--- !u!95 &-8267036208957310520
 Animator:
   serializedVersion: 7
   m_ObjectHideFlags: 0
@@ -256,7 +256,7 @@ Animator:
   m_GameObject: {fileID: 8501352562073328329}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 567e3ed4e3fbc5f42aa418bdbf6bfd41, type: 2}
+  m_Controller: {fileID: 9100000, guid: ed02f079e9fb4c241bd2c8d7d79033ba, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
