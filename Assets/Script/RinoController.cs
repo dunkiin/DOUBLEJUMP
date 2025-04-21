@@ -1,14 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-[RequireComponent(typeof(Rigidbody2D), typeof(Animator), typeof(SpriteRenderer), typeof(BoxCollider2D))]
 public class RinoController : MonoBehaviour
 {
-    [Header("Speeds & Timings")]
-    public float detectionRange = 8f;   // when the player is this close, start moving
-    public float walkSpeed = 3f;   // initial run speed
-    public float chargeSpeed = 12f;  // full‑on charge speed
-    public float chargeDelay = 0.8f; // delay before going from walk to charge
+    public float detectionRange = 8f;         // distance to start chasing
+    public float walkSpeed = 3f;         // initial run speed
+    public float chargeSpeed = 12f;        // speed during charge
+    public float chargeDelay = 0.8f;       // delay before full charge
 
     private Transform player;
     private Rigidbody2D rb;
@@ -29,106 +27,117 @@ public class RinoController : MonoBehaviour
         sprite = GetComponent<SpriteRenderer>();
         boxCol = GetComponent<BoxCollider2D>();
 
-        // Lock Y‑position & rotation so Rino stays on platform
-        rb.constraints = RigidbodyConstraints2D.FreezePositionY
-                       | RigidbodyConstraints2D.FreezeRotation;
-        boxCol.isTrigger = false;
     }
 
     void Update()
     {
         if (isDead) return;
 
-        // Detect player
-        if (!chasing &&
-            Vector2.Distance(transform.position, player.position) <= detectionRange)
+        // detect the player
+        if (!chasing && Vector2.Distance(transform.position, player.position) <= detectionRange)
         {
             chasing = true;
             dir = player.position.x > transform.position.x ? 1 : -1;
-            anim.SetInteger("state", 1);   // Rino_Running
+            anim.SetInteger("state", 1); // Running state
             StartCoroutine(StartCharge());
         }
     }
 
     IEnumerator StartCharge()
     {
-        // Run for a bit before charging
         yield return new WaitForSeconds(chargeDelay);
         if (!isDead)
+        {
             isCharging = true;
+        }
     }
 
     void FixedUpdate()
     {
         if (!chasing || isDead) return;
-
         float speed = isCharging ? chargeSpeed : walkSpeed;
-        rb.velocity = new Vector2(dir * speed, rb.velocity.y);
-        sprite.flipX = dir > 0; // face direction of movement
+        rb.linearVelocity = new Vector2(dir * speed, rb.linearVelocity.y);
+        sprite.flipX = dir > 0; // face the movement direction
     }
 
     void OnCollisionEnter2D(Collision2D collision)
     {
         if (isDead) return;
 
-        // --- Player collision: stomp vs side hit ---
+        // handle player collisions first
         if (collision.gameObject.CompareTag("Player"))
         {
             bool stomped = false;
-            foreach (var cp in collision.contacts)
+            foreach (ContactPoint2D cp in collision.contacts)
             {
-                if (cp.normal.y > 0.5f)
-                {
-                    stomped = true;
-                    break;
-                }
+                if (cp.normal.y > 0.5f) { stomped = true; break; }
             }
-
             if (stomped)
             {
-                StompedByPlayer();
-                if (collision.rigidbody != null)
-                    collision.rigidbody.velocity =
-                        new Vector2(collision.rigidbody.velocity.x, 10f);
+                StompedByPlayer(collision);
             }
             else
             {
-                // Side hit: kill player
                 collision.gameObject.GetComponent<PlayerLife>()?.Die();
             }
             return;
         }
 
-        // --- Wall collision during charge: slam ---
-        if (isCharging)
+        // handle terrain collision during charge
+        if (isCharging && collision.gameObject.CompareTag("Terrian"))
         {
-            foreach (var cp in collision.contacts)
+            foreach (ContactPoint2D cp in collision.contacts)
             {
                 if (Mathf.Abs(cp.normal.x) > 0.5f)
                 {
                     HitWall();
-                    return;
+                    break;
                 }
             }
         }
     }
 
-    void StompedByPlayer()
+    void OnCollisionStay2D(Collision2D collision)
+    {
+        if (isDead) return;
+
+        if (isCharging && collision.gameObject.CompareTag("Terrian"))
+        {
+            foreach (ContactPoint2D cp in collision.contacts)
+            {
+                if (Mathf.Abs(cp.normal.x) > 0.5f)
+                {
+                    HitWall();
+                }
+            }
+        }
+    }
+
+    void StompedByPlayer(Collision2D collision)
     {
         isDead = true;
-        rb.velocity = Vector2.zero;
+        chasing = false;
+        isCharging = false;
+        rb.linearVelocity = Vector2.zero;
         boxCol.enabled = false;
-        anim.SetTrigger("hit");  // Rino_Hit
+        anim.SetTrigger("hit");    // stomp hit animation
+
+        // bounce player
+        if (collision.rigidbody != null)
+        {
+            collision.rigidbody.linearVelocity = new Vector2(collision.rigidbody.linearVelocity.x, 10f);
+        }
+
         StartCoroutine(DestroyAfterAnimation("Rino_Hit"));
     }
 
     void HitWall()
     {
-        isDead = true;
-        rb.velocity = Vector2.zero;
-        boxCol.enabled = false;
-        anim.SetTrigger("hitwall");  // Rino_HitWall
-        StartCoroutine(DestroyAfterAnimation("Rino_HitWall"));
+        isDead = false;
+        chasing = false;
+        isCharging = false;
+        rb.linearVelocity = Vector2.zero;
+        anim.SetTrigger("hitwall"); // wall hit animation
     }
 
     IEnumerator DestroyAfterAnimation(string clipName)

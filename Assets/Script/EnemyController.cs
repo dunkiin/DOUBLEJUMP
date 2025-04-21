@@ -86,14 +86,14 @@ public class ChickenController : MonoBehaviour
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, detectionRange);
 
-        if (boxCol != null)
-        {
-            float topY = transform.position.y + boxCol.offset.y + boxCol.size.y * 0.5f;
-            Gizmos.color = Color.cyan;
-            Gizmos.DrawLine(
-                new Vector3(transform.position.x - boxCol.size.x / 2, topY),
-                new Vector3(transform.position.x + boxCol.size.x / 2, topY)
-            );
-        }
+        //if (boxCol != null)
+        //{
+        //    float topY = transform.position.y + boxCol.offset.y + boxCol.size.y * 0.5f;
+        //    Gizmos.color = Color.cyan;
+        //    Gizmos.DrawLine(
+        //        new Vector3(transform.position.x - boxCol.size.x / 2, topY),
+        //        new Vector3(transform.position.x + boxCol.size.x / 2, topY)
+        //    );
+        //}
     }
 }
