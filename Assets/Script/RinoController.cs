@@ -4,9 +4,9 @@ using System.Collections;
 public class RinoController : MonoBehaviour
 {
     public float detectionRange = 8f;         // distance to start chasing
-    public float walkSpeed = 3f;         // initial run speed
-    public float chargeSpeed = 12f;        // speed during charge
-    public float chargeDelay = 0.8f;       // delay before full charge
+    public float walkSpeed = 3f;             // initial run speed
+    public float chargeSpeed = 12f;          // speed during charge
+    public float chargeDelay = 0.8f;         // delay before full charge
 
     private Transform player;
     private Rigidbody2D rb;
@@ -54,22 +54,10 @@ public class RinoController : MonoBehaviour
     {
         if (isDead) return;
 
-        // handle player collisions first
+        // handle player collisions
         if (collision.gameObject.CompareTag("Player"))
         {
-            bool stomped = false;
-            foreach (ContactPoint2D cp in collision.contacts)
-            {
-                if (cp.normal.y > 0.5f) { stomped = true; break; }
-            }
-            if (stomped)
-            {
-                StompedByPlayer(collision);
-            }
-            else
-            {
-                collision.gameObject.GetComponent<PlayerLife>()?.Die();
-            }
+            collision.gameObject.GetComponent<PlayerLife>()?.Die();
             return;
         }
 
@@ -135,7 +123,6 @@ public class RinoController : MonoBehaviour
         // Allow detection again
         chasing = false;
     }
-
 
     void OnDrawGizmosSelected()
     {
