@@ -31,15 +31,15 @@ public class RinoController : MonoBehaviour
 
     void Update()
     {
-        if (isDead) return;
-
-        // detect the player
+        // when we detect the player...
         if (!chasing && Vector2.Distance(transform.position, player.position) <= detectionRange)
         {
             chasing = true;
-            dir = player.position.x > transform.position.x ? 1 : -1;
-            anim.SetInteger("state", 1); // Running state
-            StartCoroutine(StartCharge());
+            dir = (player.position.x > transform.position.x) ? 1 : -1;
+            anim.SetInteger("state", 1);        // Running state
+                                                // store the handle so we can cancel it later
+            chargeRoutine = StartCharge();
+            StartCoroutine(chargeRoutine);
         }
     }
 
@@ -84,31 +84,16 @@ public class RinoController : MonoBehaviour
         }
 
         // handle terrain collision during charge
-        if (isCharging && collision.gameObject.CompareTag("Terrian"))
+        if (isCharging && collision.gameObject.CompareTag("Terrain"))
         {
-            foreach (ContactPoint2D cp in collision.contacts)
+            ContactPoint2D cp = collision.contacts[0];
+            if (Mathf.Abs(cp.normal.x) > 0.5f)
             {
-                if (Mathf.Abs(cp.normal.x) > 0.5f)
-                {
-                    HitWall();
-                    break;
-                }
-            }
-        }
-    }
+                // stop the coroutine so it can’t flip back on
+                if (chargeRoutine != null)
+                    StopCoroutine(chargeRoutine);
 
-    void OnCollisionStay2D(Collision2D collision)
-    {
-        if (isDead) return;
-
-        if (isCharging && collision.gameObject.CompareTag("Terrian"))
-        {
-            foreach (ContactPoint2D cp in collision.contacts)
-            {
-                if (Mathf.Abs(cp.normal.x) > 0.5f)
-                {
-                    HitWall();
-                }
+                HitWall();
             }
         }
     }
@@ -153,5 +138,11 @@ public class RinoController : MonoBehaviour
         }
         yield return new WaitForSeconds(length);
         Destroy(gameObject);
+    }
+
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, detectionRange);
     }
 }
