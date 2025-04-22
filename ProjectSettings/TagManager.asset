@@ -7,7 +7,7 @@ TagManager:
   - Cherry
   - Trap
   - Enemy
-  - Terrian
+  - Terrain
   layers:
   - Default
   - TransparentFX

@@ -26,7 +26,6 @@ public class RinoController : MonoBehaviour
         anim = GetComponent<Animator>();
         sprite = GetComponent<SpriteRenderer>();
         boxCol = GetComponent<BoxCollider2D>();
-
     }
 
     void Update()
@@ -137,21 +136,10 @@ public class RinoController : MonoBehaviour
         chasing = false;
     }
 
-    //void StompedByPlayer(Collision2D collision)
-    //{
-    //    isDead = true;
-    //    chasing = false;
-    //    isCharging = false;
-    //    rb.linearVelocity = Vector2.zero;
-    //    boxCol.enabled = false;
-    //    anim.SetTrigger("hit");    // stomp hit animation
 
-    //    // bounce player
-    //    if (collision.rigidbody != null)
-    //    {
-    //        collision.rigidbody.linearVelocity = new Vector2(collision.rigidbody.linearVelocity.x, 10f);
-    //    }
-
-    //    StartCoroutine(DestroyAfterAnimation("Rino_Hit"));
-    //}
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, detectionRange);
+    }
 }

@@ -3,7 +3,6 @@ using System.Collections;
 
 public class EnemyController : MonoBehaviour
 {
-    [Header("Settings")]
     public float detectionRange = 5f;
     public float moveSpeed = 3f;
 
@@ -47,12 +46,11 @@ public class EnemyController : MonoBehaviour
     void OnCollisionEnter2D(Collision2D collision)
     {
         if (isDead) return;
+
         if (!collision.gameObject.CompareTag("Player")) return;
 
-        // **Check ALL contact normals** to see if any are upward
         float topY = transform.position.y + boxCol.offset.y + (boxCol.size.y * 0.5f);
 
-        // Compare player's feet position (approx by its pivot) to that top edge:
         float playerY = collision.transform.position.y;
 
         if (playerY > topY)
@@ -85,15 +83,5 @@ public class EnemyController : MonoBehaviour
     {
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, detectionRange);
-
-        //if (boxCol != null)
-        //{
-        //    float topY = transform.position.y + boxCol.offset.y + boxCol.size.y * 0.5f;
-        //    Gizmos.color = Color.cyan;
-        //    Gizmos.DrawLine(
-        //        new Vector3(transform.position.x - boxCol.size.x / 2, topY),
-        //        new Vector3(transform.position.x + boxCol.size.x / 2, topY)
-        //    );
-        //}
     }
 }
