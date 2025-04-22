@@ -19,6 +19,9 @@ public class RinoController : MonoBehaviour
     private bool isDead = false;
     private int dir = 1;
 
+    IEnumerator chargeRoutine;
+
+
     void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
@@ -37,7 +40,6 @@ public class RinoController : MonoBehaviour
             chasing = true;
             dir = (player.position.x > transform.position.x) ? 1 : -1;
             anim.SetInteger("state", 1);        // Running state
-                                                // store the handle so we can cancel it later
             chargeRoutine = StartCharge();
             StartCoroutine(chargeRoutine);
         }
