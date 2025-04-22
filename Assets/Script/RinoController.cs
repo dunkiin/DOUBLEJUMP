@@ -19,9 +19,6 @@ public class RinoController : MonoBehaviour
     private bool isDead = false;
     private int dir = 1;
 
-    IEnumerator chargeRoutine;
-
-
     void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
@@ -34,23 +31,15 @@ public class RinoController : MonoBehaviour
 
     void Update()
     {
-        // when we detect the player...
+        if (isDead) return;
+
+        // detect the player
         if (!chasing && Vector2.Distance(transform.position, player.position) <= detectionRange)
         {
             chasing = true;
-            dir = (player.position.x > transform.position.x) ? 1 : -1;
-            anim.SetInteger("state", 1);        // Running state
-            chargeRoutine = StartCharge();
-            StartCoroutine(chargeRoutine);
-        }
-    }
-
-    IEnumerator StartCharge()
-    {
-        yield return new WaitForSeconds(chargeDelay);
-        if (!isDead)
-        {
-            isCharging = true;
+            dir = player.position.x > transform.position.x ? 1 : -1;
+            anim.SetInteger("state", 1); // Running state
+            StartCoroutine(StartCharge());
         }
     }
 
@@ -86,36 +75,17 @@ public class RinoController : MonoBehaviour
         }
 
         // handle terrain collision during charge
-        if (isCharging && collision.gameObject.CompareTag("Terrain"))
+        if (isCharging && collision.gameObject.CompareTag("Terrian"))
         {
-            ContactPoint2D cp = collision.contacts[0];
-            if (Mathf.Abs(cp.normal.x) > 0.5f)
+            foreach (ContactPoint2D cp in collision.contacts)
             {
-                // stop the coroutine so it can’t flip back on
-                if (chargeRoutine != null)
-                    StopCoroutine(chargeRoutine);
-
-                HitWall();
+                if (Mathf.Abs(cp.normal.x) > 0.5f)
+                {
+                    HitWall();
+                    anim.SetInteger("state", 0); // Idle state
+                }
             }
         }
-    }
-
-    void StompedByPlayer(Collision2D collision)
-    {
-        isDead = true;
-        chasing = false;
-        isCharging = false;
-        rb.linearVelocity = Vector2.zero;
-        boxCol.enabled = false;
-        anim.SetTrigger("hit");    // stomp hit animation
-
-        // bounce player
-        if (collision.rigidbody != null)
-        {
-            collision.rigidbody.linearVelocity = new Vector2(collision.rigidbody.linearVelocity.x, 10f);
-        }
-
-        StartCoroutine(DestroyAfterAnimation("Rino_Hit"));
     }
 
     void HitWall()
@@ -125,26 +95,63 @@ public class RinoController : MonoBehaviour
         isCharging = false;
         rb.linearVelocity = Vector2.zero;
         anim.SetTrigger("hitwall"); // wall hit animation
+
+        StartCoroutine(ResetAfterWallHit());
     }
 
-    IEnumerator DestroyAfterAnimation(string clipName)
+    IEnumerator StartCharge()
     {
+        yield return new WaitForSeconds(chargeDelay);
+        if (!isDead)
+        {
+            isCharging = true;
+        }
+    }
+
+    IEnumerator ResetAfterWallHit()
+    {
+        // Wait for the hitwall animation to complete
         float length = 0f;
         foreach (var clip in anim.runtimeAnimatorController.animationClips)
         {
-            if (clip.name == clipName)
+            if (clip.name == "Rino_Hitwall" || clip.name.Contains("hitwall"))
             {
                 length = clip.length;
                 break;
             }
         }
+
         yield return new WaitForSeconds(length);
-        Destroy(gameObject);
+
+        // Reset to idle state
+        anim.SetInteger("state", 0); // Idle state
+
+        // Flip direction for future detection
+        dir *= -1;
+        sprite.flipX = dir > 0;
+
+        // Give a short cooldown before allowing detection again
+        yield return new WaitForSeconds(1f);
+
+        // Allow detection again
+        chasing = false;
     }
 
-    void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, detectionRange);
-    }
+    //void StompedByPlayer(Collision2D collision)
+    //{
+    //    isDead = true;
+    //    chasing = false;
+    //    isCharging = false;
+    //    rb.linearVelocity = Vector2.zero;
+    //    boxCol.enabled = false;
+    //    anim.SetTrigger("hit");    // stomp hit animation
+
+    //    // bounce player
+    //    if (collision.rigidbody != null)
+    //    {
+    //        collision.rigidbody.linearVelocity = new Vector2(collision.rigidbody.linearVelocity.x, 10f);
+    //    }
+
+    //    StartCoroutine(DestroyAfterAnimation("Rino_Hit"));
+    //}
 }
