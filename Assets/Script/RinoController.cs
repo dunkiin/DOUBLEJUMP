@@ -80,7 +80,7 @@ public class RinoController : MonoBehaviour
         isDead = false;
         chasing = false;
         isCharging = false;
-        rb.linearVelocity = Vector2.zero;
+        //rb.linearVelocity = Vector2.zero;
         anim.SetTrigger("hitwall"); // wall hit animation
 
         StartCoroutine(ResetAfterWallHit());
