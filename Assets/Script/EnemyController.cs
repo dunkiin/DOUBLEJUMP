@@ -12,6 +12,9 @@ public class EnemyController : MonoBehaviour
     private SpriteRenderer sprite;
     private BoxCollider2D boxCol;
 
+    [SerializeField] private AudioSource jumpSoundEffect;
+
+
     private bool chasing = false;
     private bool isDead = false;
 
@@ -74,6 +77,9 @@ public class EnemyController : MonoBehaviour
         rb.linearVelocity = Vector2.zero;
         boxCol.enabled = false;
 
+        // play the death sound effect
+        jumpSoundEffect.Play();
+        // play the death animation
         anim.SetTrigger("hit");
         Destroy(gameObject, 1f);
     }
