@@ -64,14 +64,8 @@ public class RinoController : MonoBehaviour
         // handle terrain collision during charge
         if (isCharging && collision.gameObject.CompareTag("Terrian"))
         {
-            foreach (ContactPoint2D cp in collision.contacts)
-            {
-                if (Mathf.Abs(cp.normal.x) > 0.5f)
-                {
-                    HitWall();
-                    anim.SetInteger("state", 0); // Idle state
-                }
-            }
+            HitWall();
+            anim.SetInteger("state", 0); // Idle state
         }
     }
 
