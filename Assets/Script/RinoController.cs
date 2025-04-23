@@ -3,16 +3,16 @@ using System.Collections;
 
 public class RinoController : MonoBehaviour
 {
-    public float detectionRange = 8f;         // distance to start chasing
-    public float walkSpeed = 3f;             // initial run speed
-    public float chargeSpeed = 12f;          // speed during charge
-    public float chargeDelay = 0.8f;         // delay before full charge
-
     private Transform player;
     private Rigidbody2D rb;
     private Animator anim;
     private SpriteRenderer sprite;
     private BoxCollider2D boxCol;
+
+    public float detectionRange = 8f;         // distance to start chasing
+    public float walkSpeed = 3f;             // initial run speed
+    public float chargeSpeed = 12f;          // speed during charge
+    public float chargeDelay = 0.8f;         // delay before full charge
 
     private bool chasing = false;
     private bool isCharging = false;
