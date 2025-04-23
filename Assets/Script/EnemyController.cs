@@ -1,5 +1,6 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
@@ -12,7 +13,7 @@ public class EnemyController : MonoBehaviour
     private SpriteRenderer sprite;
     private BoxCollider2D boxCol;
 
-    [SerializeField] private AudioSource jumpSoundEffect;
+    // [SerializeField] private AudioSource jumpSoundEffect;
 
 
     private bool chasing = false;
@@ -61,8 +62,9 @@ public class EnemyController : MonoBehaviour
             Kill();
 
             // bounce the player
-            if (collision.rigidbody != null)
+            if (collision.rigidbody != null) {
                 collision.rigidbody.linearVelocity = new Vector2(collision.rigidbody.linearVelocity.x, 10f);
+            }
         }
         else
         {
@@ -78,8 +80,6 @@ public class EnemyController : MonoBehaviour
         boxCol.enabled = false;
 
         // play the death sound effect
-        jumpSoundEffect.Play();
-        // play the death animation
         anim.SetTrigger("hit");
         Destroy(gameObject, 1f);
     }
