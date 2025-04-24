@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
-    public float detectionRange = 5f;
-    public float moveSpeed = 3f;
 
     private Transform player;
     private Rigidbody2D rb;
@@ -15,6 +13,8 @@ public class EnemyController : MonoBehaviour
 
     // [SerializeField] private AudioSource jumpSoundEffect;
 
+    public float detectionRange = 5f;
+    public float moveSpeed = 3f;
 
     private bool chasing = false;
     private bool isDead = false;
