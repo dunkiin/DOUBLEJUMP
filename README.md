@@ -1,10 +1,10 @@
 # DOUBLEJUMP - 2D Platformer Game
 
-A Unity-based 2D platformer featuring responsive player controls, multiple enemy types (Chicken and Rino), level completion mechanics with flag animation, and polished collision & animation workflows.
+Welcome to **DOUBLEJUMP**, a 2D Pixal Platformer game developed in Unity. Dodge traps, defeat enemies, and explore unique levels using your agility and timing!
 
 ---
 
-## Features
+## 💡 Features
 
 - Player Movement: Run, jump, fall animations with ground‑check and jump sound.
 
@@ -20,15 +20,30 @@ A Unity-based 2D platformer featuring responsive player controls, multiple enemy
 
 ---
 
-## Gameplay Controls
+## 🕹️ Gameplay Controls
 
 | Action        | Key / Button |
 |---------------|--------------|
 | Move Left     | `A` / Left   |
 | Move Right    | `D` / Right  |
 | Jump          | `Space`      |
+| Pause Menu    | `Esc`        |
+| Resume Game   | Button in Pause Panel |
+| Quit Game     | Button in Pause Panel |
 
 ---
+
+## 🚀 How to Run
+
+1. Open the project in **Unity 2021.3 or later**
+2. Load the `Start Screen` scene
+3. Click the **Start** button in the Unity editor
+4. Use the controls listed above to begin your adventure!
+
+---
+
+## 📸 Screenshots
+
 
 
 
