@@ -20,4 +20,11 @@ A Unity-based 2D platformer featuring responsive player controls, multiple enemy
 
 ---
 
+## Gameplay Controls
+| Action        | Key / Button |
+|---------------|--------------|
+| Move Left     | `A` / Left   |
+| Move Right    | `D` / Right  |
+| Jump          | `Space`      |
+
 
