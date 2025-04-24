@@ -4,7 +4,7 @@ A Unity-based 2D platformer featuring responsive player controls, multiple enemy
 
 ---
 
-Features
+## Features
 
 Player Movement: Run, jump, fall animations with ground‑check and jump sound.
 
