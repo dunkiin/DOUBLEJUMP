@@ -1,6 +1,7 @@
 # DOUBLEJUMP - 2D Platformer Game
 
 A Unity-based 2D platformer featuring responsive player controls, multiple enemy types (Chicken and Rino), level completion mechanics with flag animation, and polished collision & animation workflows.
+
 ---
 
 Features
